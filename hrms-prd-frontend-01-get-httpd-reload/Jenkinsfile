@@ -1,1 +1,18 @@
 // To reload httpd service in hrms-prd-frontend-01 //
+node {
+def remote = [:]
+
+remote.allowAnyHosts = true
+
+withCredentials([usernamePassword(credentialsId: 'jenkins-user01-002', passwordVariable: 'PASS01', usernameVariable: 'USER01')])
+{
+ remote.name = "kasturihr.com"
+ remote.host = "kasturihr.com"
+ remote.port = 9022
+ remote.user = USER01
+ remote.password = PASS01
+        stage("SSH Steps Rocks!") {
+            sshCommand remote: remote, command: 'sudo /bin/systemctl reload httpd'
+        }
+    }
+}
