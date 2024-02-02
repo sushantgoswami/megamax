@@ -1,0 +1,12 @@
+node {
+  def remote = [:]
+  remote.name = 'test'
+  remote.host = 'kasturihr.com'
+  remote.user = 'jenkins-user01'
+  remote.password = "XXXXXXXX"
+  remote.port = 9022
+  remote.allowAnyHosts = true
+  stage('Remote SSH') {
+    sshCommand remote: remote, command: "/bin/systemctl status httpd"
+  }
+}
